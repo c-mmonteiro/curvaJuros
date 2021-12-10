@@ -5,7 +5,7 @@ import matplotlib.dates as mdates
 from datetime import datetime, timedelta
 
 
-class DI_FUT:
+class diFUturo:
     def __init__(self):
         hoje = datetime.today()
 
@@ -45,7 +45,10 @@ class DI_FUT:
                     {"Vencimento": vencimento, "VRaw": datetime.strptime(vencimento, '%d/%m/%Y'),  
                     "Quantidade": count, "Simbolo": nome, "Taxa": vLast}, ignore_index=True)
             else:
-                val = mt5.symbol_info_tick(nome)
+                selecao = mt5.symbol_select(nome, True)
+                if not selecao:
+                    print(f'Adição do Symbol: {mt5.last_error()}')
+                val = mt5.symbol_info(nome)
                 vencimento = datetime.utcfromtimestamp(v).strftime('%d/%m/%Y')
                 if val:          
                     vencimentosDF = vencimentosDF.append(
@@ -55,7 +58,7 @@ class DI_FUT:
                     vencimentosDF = vencimentosDF.append(
                         {"Vencimento": vencimento, "VRaw": 0, 
                         "Quantidade": count, "Simbolo": nome, "Taxa": 0}, ignore_index=True)
-                    print(mt5.last_error())
+                    print(f'Valor: {mt5.last_error()}')
 
 
             mt5.shutdown()
@@ -88,3 +91,14 @@ class DI_FUT:
         ax=plt.xticks(curvaDI_hj["VRaw"], curvaDI_hj["Vencimento"], rotation=90) 
 
         plt.show()
+
+
+
+    
+
+
+
+
+
+
+

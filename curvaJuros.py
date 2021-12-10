@@ -3,7 +3,7 @@ import investpy
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from DI_FUT import *
+from diFuturo import *
 
 
 #############################################
@@ -42,7 +42,7 @@ for sr in titulos:
                 ignore_index=True)
 ##############################################################
 #DI Futuro
-curvaDI_hj = DI_FUT().get_curva_DI(0)
+curvaDI_hj = diFuturo().get_curva_DI(0)
 
 ##############################################################
 #Plot 
