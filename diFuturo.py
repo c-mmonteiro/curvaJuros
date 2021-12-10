@@ -5,7 +5,7 @@ import matplotlib.dates as mdates
 from datetime import datetime, timedelta
 
 
-class diFUturo:
+class diFuturo:
     def __init__(self):
         hoje = datetime.today()
 
