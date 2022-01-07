@@ -43,6 +43,7 @@ for sr in titulos:
 ##############################################################
 #DI Futuro
 curvaDI_hj = diFuturo().get_curva_DI(0)
+curvaDI_mes = diFuturo().get_curva_DI(22)
 
 ##############################################################
 #Plot 
@@ -52,6 +53,7 @@ fig, ax = plt.subplots(1,1)
 ax.set_title("Curva de Juros BR")
 ax.plot(dados_full["VRaw"], dados_full["Taxa"], marker='.', label = 'Titulos')
 ax.plot(curvaDI_hj["VRaw"], curvaDI_hj["Taxa"], marker='.', label = 'DI')
+ax.plot(curvaDI_mes["VRaw"], curvaDI_mes["Taxa"], marker='.', label = 'DI - 1 Mês')
 ax.plot(dados_td["VRaw"], dados_td["Taxa"], marker='.', label = 'TD')
 
 ax.grid()

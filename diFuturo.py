@@ -47,22 +47,23 @@ class diFuturo:
             else:
                 selecao = mt5.symbol_select(nome, True)
                 if not selecao:
-                    print(f'Adição do Symbol: {mt5.last_error()}')
-                val = mt5.symbol_info(nome)
+                    print(f'Adição do Symbol {nome}: {mt5.last_error()}')
+                val = mt5.copy_rates_from_pos(nome, mt5.TIMEFRAME_D1, dia, 1)
+                #val = mt5.symbol_info(nome)
                 vencimento = datetime.utcfromtimestamp(v).strftime('%d/%m/%Y')
-                if val:          
-                    vencimentosDF = vencimentosDF.append(
-                        {"Vencimento": vencimento, "VRaw": datetime.strptime(vencimento, '%d/%m/%Y'), 
-                        "Quantidade": count, "Simbolo": nome, "Taxa": val.last}, ignore_index=True)
-                else:
-                    vencimentosDF = vencimentosDF.append(
-                        {"Vencimento": vencimento, "VRaw": 0, 
-                        "Quantidade": count, "Simbolo": nome, "Taxa": 0}, ignore_index=True)
-                    print(f'Valor: {mt5.last_error()}')
+                if val:
+                    if val['close'][0] == 0:
+                        print(f'Ativo sem valor no MT5 {nome}')
+                    else:         
+                        vencimentosDF = vencimentosDF.append(
+                            {"Vencimento": vencimento, "VRaw": datetime.strptime(vencimento, '%d/%m/%Y'), 
+                            "Quantidade": count, "Simbolo": nome, "Taxa": val['close'][0]}, ignore_index=True)
+                else: 
+                    print(f'Valor {nome}: {mt5.last_error()}')
 
 
-            mt5.shutdown()
-        print(vencimentosDF)
+        mt5.shutdown()
+        #print(vencimentosDF)
         return vencimentosDF
 
     def plot_DI_semana(self, n):
