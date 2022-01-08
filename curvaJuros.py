@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import investpy
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -43,7 +43,7 @@ for sr in titulos:
 ##############################################################
 #DI Futuro
 curvaDI_hj = diFuturo().get_curva_DI(0)
-curvaDI_mes = diFuturo().get_curva_DI(22)
+curvaDI_mes = diFuturo().get_curva_DI(int((hoje - timedelta(28)).timestamp()))
 
 ##############################################################
 #Plot 
