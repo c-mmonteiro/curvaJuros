@@ -29,7 +29,7 @@ class diFuturo:
        # mt5.shutdown()
 
     def get_curva_DI(self, dia):
-        vencimentosDF = pd.DataFrame(columns=['Vencimento', 'Quantidade', 'Simbolo', 'Taxa'])
+        vencimentosDF = pd.DataFrame(columns=['Vencimento', 'VRaw', 'Quantidade', 'Simbolo', 'Taxa'])
       #  mt5.initialize()
 
         for v in self.vencimentos:
@@ -62,7 +62,7 @@ class diFuturo:
 
 
         mt5.shutdown()
-        #print(vencimentosDF)
+        print(vencimentosDF)
         return vencimentosDF
 
 
